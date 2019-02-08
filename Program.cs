@@ -10,7 +10,7 @@ namespace NetworkReceiveTextServer
     {
         static void Main(string[] args)
         {
-            IPAddress ip = new IPAddress(new byte[] { 192, 168, 178, 57 });
+            IPAddress ip = new IPAddress(new byte[] { 192, 168, 1, 224 });
             TcpListener serverSocket = new TcpListener(ip, 8888);
             int requestCount = 0;
             TcpClient clientSocket = default(TcpClient);
@@ -39,11 +39,11 @@ namespace NetworkReceiveTextServer
                     Console.WriteLine("UTF7 :" + ToString(Encoding.UTF7, bytesFrom));
                     Console.WriteLine("UTF8 :" + ToString(Encoding.UTF8, bytesFrom));
 
-                    //string serverResponse = "Last Message from client" + dataFromClient;
-                    //Byte[] sendBytes = Encoding.ASCII.GetBytes(serverResponse);
-                    //networkStream.Write(sendBytes, 0, sendBytes.Length);
-                    //networkStream.Flush();
-                    //Console.WriteLine(" >> " + serverResponse);
+                    string serverResponse = "Last Message from client: "+DateTime.Now.Millisecond;
+                    Byte[] sendBytes = Encoding.ASCII.GetBytes(serverResponse);
+                    networkStream.Write(sendBytes, 0, sendBytes.Length);
+                    networkStream.Flush();
+                    Console.WriteLine(" >> " + serverResponse);
                 }
                 catch (Exception ex)
                 {
